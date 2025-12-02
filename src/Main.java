@@ -18,10 +18,10 @@ public class Main {
         System.out.println(queue.remove()); //Returns exception if queue is empty
         System.out.println(queue.remove());
         System.out.println(queue.poll());
-        System.out.println(queue.element()); //Returns exception if queue is empty */
+        System.out.println(queue.element()); //Returns exception if queue is empty
 
         //Priority Queue
-        /*PriorityQueue<Integer> pq = new PriorityQueue<>( new Comparator<Integer>() {
+        PriorityQueue<Integer> pq = new PriorityQueue<>( new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 if (o2 > o1) {
@@ -30,9 +30,9 @@ public class Main {
                     return 0;
                 } return -1;
             }
-        });*/
+        });
 
-        /*PriorityQueue<Integer> pq = new PriorityQueue<>((o1, o2) -> o2-o1);
+        //PriorityQueue<Integer> pq = new PriorityQueue<>((o1, o2) -> o2-o1);
         pq.offer(9);
         pq.offer(12);
         pq.offer(8);
@@ -44,5 +44,56 @@ public class Main {
             //This will print level order traversal of heap
             System.out.println(iteratorPq.next());
         }*/
+
+        //Declaration of Arrays
+        /*Integer [] array = {1,2,3,4,5,6};
+        int [] array1 = new int[]{1,2,3,4,5};
+        int []array2 = new int[5];
+        String [] strArray = new String[5];
+        Arrays.sort(array1);
+
+        //Convert Array to ArrayList valid only for non primitive []
+        ArrayList<Integer> arrayList = new ArrayList<>(Arrays.asList(array));
+
+        //Convert ArrayList to Array
+        Integer [] newArr = arrayList.toArray(new Integer[0]);*/
+
+        //Comparator
+        /*Car car = new Car();
+        System.out.println(car.getName()); //prints null default value
+        System.out.println(car.getId()); // same
+        System.out.println(car.getType()); //same
+        System.out.println(car.getI()); //0 default value
+
+        car.setId(5);
+        System.out.println(car.getId()); //prints 5
+        Car [] carArray = new Car[10];
+        Car [] carArr = new Car[]{
+                new Car(1,"Suv", "abcd"),
+                new Car(2, "Ostrich", "hello"),
+                new Car(3, "Hetchback", "petrol")
+        }; */
+        /*Arrays.sort(carArr, new Comparator<Car>() {
+            @Override
+            public int compare(Car obj1,  Car obj2) {
+                // if obj1 is a and obj2 is b a>b return -1 if obj1 = b then b>a return 1 and swap
+               // return obj1.getType().compareTo(obj2.getType());
+                return obj2.getType().compareTo(obj1.getType());
+                //b > a = 1 swap or obj1 = a then b>a = swap obj1=b a>b return -1
+                /*he result is a negative integer if this String object lexicographically precedes the argument string.
+                The result is a positive integer if this String object lexicographically follows the argument string.
+                The result is zero if the strings are equal; compareTo returns 0
+                exactly when the equals(Object) method would return true.
+            }
+        });
+        for (Car value : carArr) {
+            System.out.println(value);
+        }
+
+        Arrays.sort(carArr); //Sorting by comparable
+        for (Car value : carArr) {
+            System.out.println(value);
+        }*/
+
     }
 }
