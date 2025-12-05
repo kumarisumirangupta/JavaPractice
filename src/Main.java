@@ -40,6 +40,9 @@ public class Main {
         set1.add(new Student(1, "A"));
         set1.add(new Student(1, "A")); // if equals is not override then both will be addded
         System.out.println(set1);
+        List stringList = new ArrayList();
+//        stringList.add(1);
+//        stringList.add("a");
     }
 
     private static class Student {

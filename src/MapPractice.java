@@ -8,7 +8,10 @@ public class MapPractice {
 //        q3();
 //        q4();
 //        q5();
-        q6();
+//        q6();
+//        q7();
+//        q8();
+
     }
     /*21. Add, remove, replace operations.
     Map: Empty
@@ -81,20 +84,25 @@ public class MapPractice {
         hashMap.put(3, "A");
         hashMap.put(1, "B");
         hashMap.put(2, "C");
-        hashMap.put(4, "A");
-        System.out.println(hashMap);
+        hashMap.put(4, "D");
+        System.out.println("Treemap are in descending oredr of key "+ hashMap);
 
         Set<Map.Entry<Integer, String>>  entries = hashMap.entrySet();
         List<Map.Entry<Integer, String>> mapList = new ArrayList<>(entries);
     //    mapList.sort(Map.Entry.comparingByValue());
-        mapList.sort((a,b) ->  a.getValue().compareTo(b.getValue()));
+     //   mapList.sort((a,b) ->  a.getValue().compareTo(b.getValue()));
        // mapList.sort();
-        System.out.println(mapList);
-        LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap<>();
+        System.out.println("list of map "+ mapList);
+        LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap<>(16, 0.75f,true);
         for(Map.Entry<Integer,String> entry :mapList){
             linkedHashMap.put(entry.getKey(), entry.getValue());
         }
-        System.out.println(linkedHashMap);
+        System.out.println("linked hashmap created "+linkedHashMap);
+        linkedHashMap.get(4);
+        System.out.println("after accessing 4 "+linkedHashMap);
+        linkedHashMap.put(6,"abdcd");
+        System.out.println("after adding 6 "+linkedHashMap);
+
     }
 
     /*29. Merge two Maps (handle conflicts).
@@ -172,6 +180,39 @@ public class MapPractice {
         iteration.put("Python",Arrays.asList("Spring", "Hibernate"));
 
         iteration.forEach((key, value) -> System.out.println(key+" -> "+ value));
+    }
+
+    static void q7(){
+        /*IdentityHashMap.
+        Data:Two strings with same content "A" but created using new
+                Insert both → should be stored separately.*/
+
+        IdentityHashMap<String, String> stringStringIdentityHashMap = new IdentityHashMap<>();
+        String s1 = new String("hello");
+        String s2 = "hello";
+
+        stringStringIdentityHashMap.put(s1, "first");
+        stringStringIdentityHashMap.put("hello","thrid");
+        stringStringIdentityHashMap.put(s2, "second");
+        System.out.println(stringStringIdentityHashMap); //IdentityHashMap compares key by == method means uses System.identityHashcode method that is memory address so
+        //all objects are not same equals ke jagah == and Objects.hashcode ke jagah upar wala method but strong literal refrence to memory address so replaces value
+
+        System.out.println(System.identityHashCode(s1));
+        System.out.println(System.identityHashCode(s2));
+
+
+    }
+
+    static void q8(){
+        enum DAY{MON, TUE, WED};
+
+        EnumMap<DAY, String> enumMap = new EnumMap<>(DAY.class);
+        enumMap.put(DAY.MON, "Start");
+        enumMap.put(DAY.TUE, "Run");
+        enumMap.put(DAY.WED, "Rerun");
+
+        System.out.println(enumMap);
+
     }
 
 }
