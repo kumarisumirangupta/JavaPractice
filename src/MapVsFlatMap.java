@@ -14,6 +14,30 @@ class Student {
         this.nickNames = nickNames;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Integer> getMobileNumbers() {
+        return mobileNumbers;
+    }
+
+    public void setMobileNumbers(List<Integer> mobileNumbers) {
+        this.mobileNumbers = mobileNumbers;
+    }
+
+    public List<String> getNickNames() {
+        return nickNames;
+    }
+
+    public void setNickNames(List<String> nickNames) {
+        this.nickNames = nickNames;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -26,7 +50,7 @@ class Student {
 public class MapVsFlatMap {
 
     public static void main(String[] args) {
-        /*List<Integer> l1 = List.of(1,2,3,4,5);
+        List<Integer> l1 = List.of(1,2,3,4,5);
         List<Integer> l2 = List.of(6,7);
         List<Integer> l3= List.of(8,9);
 
@@ -60,13 +84,13 @@ public class MapVsFlatMap {
         System.out.println(outputList);
         System.out.println("calling flatmap function");
         List<String> flatOutputList = flatMap(listOfStrings, funFlatMap);
-        System.out.println(flatOutputList);*/
+        System.out.println(flatOutputList);
 
         List<Student> studentList = new ArrayList<>(Arrays.asList(new Student("Sumiran", Arrays.asList(12343535, 15353535), List.of("sumi", "joy")),
                 new Student("Simran", Arrays.asList(46547367, 4658348), List.of("motki", "pagali")),
                 new Student("John", Arrays.asList(2436436, 689595), List.of("jo", "jon"))));
 
-        /*Function<Student, List<Integer>> flatMapForStudent = new Function<Student, List<Integer>>() {
+        Function<Student, List<Integer>> flatMapForStudent = new Function<Student, List<Integer>>() {
             @Override
             public List<Integer> apply(Student student) {
                 return student.mobileNumbers;
@@ -90,7 +114,7 @@ public class MapVsFlatMap {
                 return "value is "+input;
             }
         }).toList();
-        System.out.println(outputString);*/
+        System.out.println(outputString);
 
         //find length of nick names of each student
         List<Integer> nickNamesList = studentList.stream().map(new Function<Student, List<Integer>>() {
@@ -109,6 +133,35 @@ public class MapVsFlatMap {
                         return integers.stream();
                     }
                 })
+                .collect(Collectors.toList());
+
+        //Length of nickname of each student
+        studentList.stream()
+                .map(new Function<Student, List<String>>(){
+                    @Override
+                    public List<String> apply(Student student){
+                        return student.nickNames;
+                    }
+                }) //List<List<String>>
+                .flatMap(new Function<List<String>, Stream<String>>(){
+                    @Override
+                    public Stream<String> apply(List<String> list){
+                        return list.stream();
+                    }}) //List<String>
+                .map(String::length)
+                .toList();
+
+        //by lamda expression
+        List<Integer> collect = studentList.stream()
+                .map(Student::getNickNames)
+                .flatMap(Collection::stream)
+                .map(String::length)
+                .toList();
+
+        //nickname using flatmap
+        studentList.stream()
+                .flatMap(student -> student.nickNames.stream())
+                .map(String::length)
                 .collect(Collectors.toList());
 
         //using flatMap
@@ -136,6 +189,8 @@ public class MapVsFlatMap {
         System.out.println(nickNamesListUsingFlatMap2);
         List<String> nickNames = studentList.stream().flatMap(student -> student.nickNames.stream()).toList();
         System.out.println(nickNames);
+
+        q1();
     }
 
     static List<Integer> extractMobileNumber(List<Student> studentList, Function<Student, List<Integer>> mapper){
@@ -172,4 +227,26 @@ public class MapVsFlatMap {
         }
         return mergedList;
     }
+
+    /*1. Nested Collection Flattening
+    You have a List<List<String>>.
+    Using flatMap, extract all unique strings longer than 3 characters.
+    Explain why map() would not work here.*/
+
+    public static void q1(){
+        List<List<String>> l1 = new ArrayList<>();
+        l1.add(Arrays.asList("Sumiran", "Simran"));
+        l1.add(Arrays.asList("Lokesh", "Joy", "ab"));
+        l1.add(Arrays.asList("Joy", "Sumiran"));
+
+        List<String> list1 = l1.stream()
+                .flatMap(Collection::stream)
+                .filter(str -> str.length() > 3)
+                .distinct()
+                .toList();
+
+        System.out.println(list1);
+
+    }
+
 }
