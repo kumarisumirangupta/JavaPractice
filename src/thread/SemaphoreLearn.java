@@ -28,6 +28,19 @@ public class SemaphoreLearn {
         System.out.println("waking thread "+Thread.currentThread().getName());
     }
 
+    /*@GetMapping
+    public void getUser() throws InterruptedException {
+        call("jhsbkvuasbu");
+    }
+
+    Semaphore s = new Semaphore(10);
+    public void call(String url) throws InterruptedException {
+
+        s.acquire();
+        //call recuiter
+        s.release();
+    }*/
+
     public static void main(String[] args) {
         SemaphoreLearn semaphoreLearn = new SemaphoreLearn();
         Thread thread = new Thread(semaphoreLearn::semaphoreResource);

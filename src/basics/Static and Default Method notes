@@ -1,0 +1,213 @@
+Static and default method inheritance
+
+In Java, inheritance/behavior of methods differs for static, default, and normal instance methods, especially when interfaces and classes are involved.Let’s break it clearly + interview-ready, with rules and examples.
+
+1️⃣ Static Methods in Interface
+
+🔹 Key Rules
+
+Static methods in interfaces are NOT inherited
+
+They belong to the interface, not to implementing classes
+
+Must be called using InterfaceName.method()
+
+Cannot be overridden
+
+✅ Example
+
+interface A {
+    static void show() {
+        System.out.println("Static method in interface A");
+    }
+}
+
+class B implements A {
+}
+
+public class Test {
+    public static void main(String[] args) {
+        A.show();     // ✅ valid
+        // B.show();  ❌ compile-time error
+    }
+}
+
+
+🔍 Explanation
+
+show() is tied to A
+
+B does not inherit it
+
+Even though B implements A, static methods don’t participate in inheritance
+
+📌 Interview line:
+
+Static methods in interfaces are not inherited; they must be accessed using the interface name.
+
+2️⃣ Static Methods in Class
+
+🔹 Key Rules
+
+Static methods are inherited, but NOT overridden
+
+They can be hidden (method hiding)
+
+Method call depends on reference type, not object
+
+✅ Example
+
+class Parent {
+    static void display() {
+        System.out.println("Parent static method");
+    }
+}
+
+class Child extends Parent {
+    static void display() {
+        System.out.println("Child static method");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.display();   // Parent static method
+        Child.display(); // Child static method
+    }
+}
+
+
+🔍 Explanation
+
+This is method hiding, not overriding
+
+Compile-time binding
+
+JVM decides based on reference type
+
+📌 Interview line:
+
+Static methods are inherited but cannot be overridden; they support method hiding.
+
+3️⃣ Default Methods in Interface
+
+🔹 Key Rules
+
+Default methods ARE inherited
+
+Can be overridden by implementing class
+
+Provide backward compatibility (Java 8)
+
+✅ Example
+
+interface A {
+    default void greet() {
+        System.out.println("Hello from interface A");
+    }
+}
+
+class B implements A {
+}
+
+public class Test {
+    public static void main(String[] args) {
+        B b = new B();
+        b.greet(); // Hello from interface A
+    }
+}
+
+
+🔍 Explanation
+
+Default method behaves like an instance method
+
+Automatically available to implementing class
+
+4️⃣ Overriding Default Method in Class
+
+✅ Example
+
+class B implements A {
+    @Override
+    public void greet() {
+        System.out.println("Hello from class B");
+    }
+}
+
+
+📌 Rule:Class implementation always wins over interface default method.
+
+5️⃣ Multiple Interfaces with Same Default Method (Diamond Problem)
+
+❌ Problem
+
+interface A {
+    default void greet() {
+        System.out.println("A");
+    }
+}
+
+interface C {
+    default void greet() {
+        System.out.println("C");
+    }
+}
+
+class B implements A, C {
+}
+
+
+❌ Compile-time error
+
+✅ Solution (Must override)
+
+class B implements A, C {
+    @Override
+    public void greet() {
+        A.super.greet(); // or C.super.greet()
+    }
+}
+
+
+📌 Interview line:
+
+If multiple interfaces provide the same default method, the implementing class must override it.
+
+6️⃣ Interface Default vs Class Method
+
+Rule
+
+👉 Class method has higher priority than interface default method
+
+Example
+
+class Parent {
+    public void greet() {
+        System.out.println("Parent class");
+    }
+}
+
+interface A {
+    default void greet() {
+        System.out.println("Interface A");
+    }
+}
+
+class Child extends Parent implements A {
+}
+
+
+Output
+
+Parent class
+
+
+📌 Interview line:
+
+Class methods override interface default methods automatically.
+
+🎯 One-Line Interview Summary
+
+Static methods do not support runtime polymorphism, default methods do, and class methods always take precedence over interface default methods.

@@ -392,8 +392,10 @@ public class Main {
         }*/
 
         //Declaration of Arrays
-        /*Integer [] array = {1,2,3,4,5,6};
+        /*
+        Integer [] array = {1,2,3,4,5,6};
         int [] array1 = new int[]{1,2,3,4,5};
+        int [] array8 = {1,2,3,4,5,6};
         int []array2 = new int[5];
         String [] strArray = new String[5];
         Arrays.sort(array1);

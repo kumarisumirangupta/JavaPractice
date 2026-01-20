@@ -37,9 +37,15 @@ public class ConsumerProducerExample {
                 }
             }
         });
-
+        consumerThread.setPriority(10);
         producerThread.start();
         consumerThread.start();
+        try {
+            consumerThread.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("main thread");
 
     }
 
